@@ -1,9 +1,7 @@
 import { useState } from "react";
 
 function AIChat() {
-
     const [isOpen, setIsOpen] = useState(false);
-
     const [message, setMessage] = useState("");
 
     const [messages, setMessages] = useState([
@@ -15,15 +13,12 @@ function AIChat() {
 
     const [loading, setLoading] = useState(false);
 
-
     const handleSubmit = async (e) => {
-
         e.preventDefault();
 
         if (!message.trim() || loading) {
             return;
         }
-
 
         const userMessage = message.trim();
 
@@ -36,14 +31,11 @@ function AIChat() {
         ]);
 
         setMessage("");
-
         setLoading(true);
 
-
         try {
-
             const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/chat`,
+                "https://srinivas-portfolio-api.onrender.com/api/chat",
                 {
                     method: "POST",
 
@@ -57,12 +49,9 @@ function AIChat() {
                 }
             );
 
-
             const data = await response.json();
 
-
             if (data.success) {
-
                 setMessages((prev) => [
                     ...prev,
                     {
@@ -70,9 +59,7 @@ function AIChat() {
                         text: data.reply
                     }
                 ]);
-
             } else {
-
                 setMessages((prev) => [
                     ...prev,
                     {
@@ -80,13 +67,9 @@ function AIChat() {
                         text: "Sorry, I couldn't process that request."
                     }
                 ]);
-
             }
-
-
         } catch (error) {
-
-            console.error(error);
+            console.error("AI Chat error:", error);
 
             setMessages((prev) => [
                 ...prev,
@@ -95,20 +78,13 @@ function AIChat() {
                     text: "I'm unable to connect to the AI right now."
                 }
             ]);
-
         } finally {
-
             setLoading(false);
-
         }
-
     };
 
-
     return (
-
         <>
-
             {/* ================================
                 FLOATING AI BUTTON
             ================================= */}
@@ -121,13 +97,11 @@ function AIChat() {
                 ✦
             </button>
 
-
             {/* ================================
                 CHAT WINDOW
             ================================= */}
 
             {isOpen && (
-
                 <div className="ai-chat-window">
 
                     <div className="ai-chat-header">
@@ -142,7 +116,6 @@ function AIChat() {
                             </span>
                         </div>
 
-
                         <button
                             className="ai-chat-close"
                             onClick={() => setIsOpen(false)}
@@ -153,31 +126,24 @@ function AIChat() {
 
                     </div>
 
-
                     <div className="ai-chat-messages">
 
                         {messages.map((item, index) => (
-
                             <div
                                 key={index}
                                 className={`ai-message ${item.sender}`}
                             >
                                 {item.text}
                             </div>
-
                         ))}
 
-
                         {loading && (
-
                             <div className="ai-message ai">
                                 Thinking...
                             </div>
-
                         )}
 
                     </div>
-
 
                     <form
                         className="ai-chat-input"
@@ -191,8 +157,8 @@ function AIChat() {
                             onChange={(e) =>
                                 setMessage(e.target.value)
                             }
+                            disabled={loading}
                         />
-
 
                         <button
                             type="submit"
@@ -204,13 +170,9 @@ function AIChat() {
                     </form>
 
                 </div>
-
             )}
-
         </>
-
     );
-
 }
 
 export default AIChat;

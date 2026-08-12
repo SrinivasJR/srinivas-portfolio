@@ -13,9 +13,7 @@ function Contact() {
     });
 
     const [status, setStatus] = useState("");
-
     const [isSubmitting, setIsSubmitting] = useState(false);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,10 +23,9 @@ function Contact() {
         setIsSubmitting(true);
         setStatus("Sending...");
 
-
         try {
             const response = await fetch(
-                "http://localhost:5000/api/contact",
+                "https://srinivas-portfolio-api.onrender.com/api/contact",
                 {
                     method: "POST",
 
@@ -40,9 +37,7 @@ function Contact() {
                 }
             );
 
-
             const data = await response.json();
-
 
             if (response.ok && data.success) {
 
@@ -62,7 +57,6 @@ function Contact() {
                     data.message ||
                     "Unable to send message."
                 );
-
             }
 
         } catch (error) {
@@ -82,7 +76,6 @@ function Contact() {
 
         }
     };
-
 
     return (
         <section id="contact">
