@@ -2,6 +2,17 @@
    NAVBAR
 ================================ */
 
+
+/* ================================
+   GLOBAL BOX SIZING
+================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 .navbar {
     position: fixed;
     top: 20px;
@@ -495,15 +506,6 @@
 ================================ */
 
 @media (max-width: 768px) {
-    .navbar {
-        width: 94%;
-    }
-    .navbar-links {
-        gap: 12px;
-    }
-    .navbar-links button {
-        font-size: 12px;
-    }
     .hero {
         grid-template-columns: 1fr;
         padding-top: 140px;
@@ -783,7 +785,7 @@
         padding-right: 20px;
     }
     .hero h1 {
-        font-size: 52px;
+        font-size: 44px;
         letter-spacing: -3px;
     }
     .hero-description {
@@ -1583,12 +1585,16 @@
     /* Show hamburger */
     .mobile-menu-button {
         display: flex;
+        position: relative;
+        z-index: 1002;
     }
     /* Mobile dropdown */
     .mobile-menu {
         position: absolute;
         top: calc(100% + 10px);
         left: 0;
+        right: 0;
+        z-index: 1001;
         width: 100%;
         box-sizing: border-box;
         padding: 10px;
